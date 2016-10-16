@@ -7,6 +7,8 @@ package pacman.game;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import pacman.gui.*;
@@ -32,6 +34,8 @@ public class PacMan{
     public static void loop(GUI ui, Input in){
         Player player = new Player(5,5);
         Enemy[] enemies = {new Enemy(2,6, Color.PINK), new Enemy(6,2, Color.ORANGE)};
+        List<Life> lives = new ArrayList();
+        lives.add(new Life(15,15));
         Timer timer = new javax.swing.Timer(120, new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -44,7 +48,7 @@ public class PacMan{
                         System.exit(0);
                     }
                 }else{
-                    ui.updateGrid(player, enemies);
+                    ui.updateGrid(player, enemies, lives);
 
                     player.setPosition(
                             player.getPositionX() + in.getDirection()[1],
@@ -55,6 +59,14 @@ public class PacMan{
                                 && player.getPositionY() == enemy.getPositionY()) {
                             player.lostLife();
                             player.setPosition(5, 5);
+                        }
+                    }
+                    
+                    for (int i = 0; i < lives.size(); i++){
+                        if (player.getPositionX() == lives.get(i).getPositionX()
+                                && player.getPositionY() == lives.get(i).getPositionY()) {
+                            player.addLife();
+                            lives.remove(i);
                         }
                     }
                 }

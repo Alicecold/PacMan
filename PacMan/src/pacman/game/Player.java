@@ -15,6 +15,7 @@ public class Player {
     private int x, y;
     public final Color COLOR = Color.YELLOW;
     private int livesLeft;
+    public static final int MAX_LIVES = 3;
     
     public Player(int posX, int posY){
         x = posX;
@@ -44,10 +45,11 @@ public class Player {
     }
     
     public void addLife(){
-        livesLeft++;
+        if(livesLeft < MAX_LIVES)
+            livesLeft++;
     }
     
     public void reset(){
-        livesLeft = 5;
+        livesLeft = MAX_LIVES;
     }
 }

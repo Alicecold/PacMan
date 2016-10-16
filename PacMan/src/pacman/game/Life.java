@@ -20,11 +20,11 @@ public class Life {
         y = posY;
     }
     
-    public int getPosX(){
+    public int getPositionX(){
         return x;
     }
     
-    public int getPosY(){
+    public int getPositionY(){
         return y;
     }
     
