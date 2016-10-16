@@ -26,7 +26,7 @@ public class GUI extends javax.swing.JFrame{
         this.setTitle("PacMan v0.0.1");
     };
     
-    public void updateGrid(Player player, Enemy[] enemies, List<Life> lives, Wall[] walls){
+    public void updateGrid(Player player, Enemy[] enemies, List<Life> lives, List<Wall> walls){
         offScreenImg = createImage(grid.getWidth(),grid.getHeight());
         offScreenGraph = offScreenImg.getGraphics();
         drawGrid(player, enemies, lives, walls);
@@ -72,17 +72,17 @@ public class GUI extends javax.swing.JFrame{
         pack();
     }
     
-    private void drawGrid(Player player, Enemy[] enemies, List<Life> lives, Wall[] walls){
+    private void drawGrid(Player player, Enemy[] enemies, List<Life> lives, List<Wall> walls){
         offScreenGraph.setColor(Color.BLUE);
         offScreenGraph.fillRect(0, 0, grid.getWidth(), grid.getHeight());
         
-        for(int i = 0; i < LEVEL_WIDTH; i++){
-            offScreenGraph.setColor(Color.BLACK);
-            int X = i * grid.getWidth()/LEVEL_WIDTH;
-            offScreenGraph.fillRect(X, 0,
-                    grid.getWidth()/LEVEL_WIDTH,
-                    grid.getHeight()/LEVEL_HEIGHT); 
-        }
+//        for(int i = 0; i < LEVEL_WIDTH; i++){
+//            offScreenGraph.setColor(Color.BLACK);
+//            int X = i * grid.getWidth()/LEVEL_WIDTH;
+//            offScreenGraph.fillRect(X, 0,
+//                    grid.getWidth()/LEVEL_WIDTH,
+//                    grid.getHeight()/LEVEL_HEIGHT); 
+//        }
         
         for(Wall wall : walls){
             offScreenGraph.setColor(wall.COLOR);

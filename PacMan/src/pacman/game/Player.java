@@ -12,10 +12,10 @@ import java.awt.Color;
  * @author alicecold
  */
 public class Player {
-    private int x, y;
+    protected int x, y;
     public final Color COLOR = Color.YELLOW;
     private int livesLeft;
-    public static final int MAX_LIVES = 3;
+    public static final int MAX_LIVES = 5;
     
     public Player(int posX, int posY){
         x = posX;
@@ -46,10 +46,10 @@ public class Player {
     
     public void addLife(){
         if(livesLeft < MAX_LIVES)
-            livesLeft++;
+        livesLeft++;
     }
     
     public void reset(){
-        livesLeft = MAX_LIVES;
+        livesLeft = 3;
     }
 }

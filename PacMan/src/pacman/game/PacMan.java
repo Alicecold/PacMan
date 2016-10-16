@@ -34,7 +34,16 @@ public class PacMan{
     public static void loop(GUI ui, Input in){
         Player player = new Player(5,5);
         Enemy[] enemies = {new Enemy(2,6, Color.PINK), new Enemy(6,2, Color.ORANGE)};
-        Wall[] walls = {new Wall(0,1)};
+        List<Wall> walls = new ArrayList<Wall>();
+        
+        for(int i = 0; i < 20; i++){
+            walls.add(new Wall(i,0));
+            walls.add(new Wall(0,i));
+            walls.add(new Wall(19,i));
+            walls.add(new Wall(i, 19));
+        }
+        
+        
         List<Life> lives = new ArrayList();
         lives.add(new Life(15,15));
         Timer timer = new javax.swing.Timer(120, new ActionListener(){
@@ -55,6 +64,10 @@ public class PacMan{
 //                            player.getPositionX() + in.getDirection()[1],
 //                            player.getPositionY() + in.getDirection()[0]);
                     moveCharacter(player, walls, in.getDirection()[1], in.getDirection()[0]);
+                    
+                    for(Enemy enemy: enemies){
+                        moveCharacter(enemy, walls, enemy.wantToMove()[1], enemy.wantToMove()[0]);
+                    }
 
                     for (Enemy enemy : enemies) {
                         if (player.getPositionX() == enemy.getPositionX()
@@ -77,12 +90,17 @@ public class PacMan{
         timer.start();
     }
     
-    private static void moveCharacter(Player player, Wall[] walls, int x, int y){
-        for(int i = 0; i < walls.length; i++){
+    private static void moveCharacter(Player player, List<Wall> walls, int x, int y){
+        boolean move = true;
+        for(int i = 0; i < walls.size(); i++){
         
-            if(player.getPositionX() + x != walls[i].getPositionX() ||
-                    player.getPositionY() + y != walls[i].getPositionY())
-                player.setPosition(player.getPositionX() + x, player.getPositionY() + y);
+            if(player.getPositionX() + x == walls.get(i).getPositionX() &&
+                    player.getPositionY() + y == walls.get(i).getPositionY())
+                move = false;
+        }
+        
+        if(move){
+            player.setPosition(player.getPositionX() + x, player.getPositionY() + y);
         }
     
     }
