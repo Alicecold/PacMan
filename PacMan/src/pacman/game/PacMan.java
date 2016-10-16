@@ -34,6 +34,7 @@ public class PacMan{
     public static void loop(GUI ui, Input in){
         Player player = new Player(5,5);
         Enemy[] enemies = {new Enemy(2,6, Color.PINK), new Enemy(6,2, Color.ORANGE)};
+        Wall[] walls = {new Wall(0,1)};
         List<Life> lives = new ArrayList();
         lives.add(new Life(15,15));
         Timer timer = new javax.swing.Timer(120, new ActionListener(){
@@ -48,11 +49,12 @@ public class PacMan{
                         System.exit(0);
                     }
                 }else{
-                    ui.updateGrid(player, enemies, lives);
-
-                    player.setPosition(
-                            player.getPositionX() + in.getDirection()[1],
-                            player.getPositionY() + in.getDirection()[0]);
+                    ui.updateGrid(player, enemies, lives, walls);
+                    
+//                    player.setPosition(
+//                            player.getPositionX() + in.getDirection()[1],
+//                            player.getPositionY() + in.getDirection()[0]);
+                    moveCharacter(player, walls, in.getDirection()[1], in.getDirection()[0]);
 
                     for (Enemy enemy : enemies) {
                         if (player.getPositionX() == enemy.getPositionX()
@@ -73,6 +75,16 @@ public class PacMan{
             }
         });
         timer.start();
+    }
+    
+    private static void moveCharacter(Player player, Wall[] walls, int x, int y){
+        for(int i = 0; i < walls.length; i++){
+        
+            if(player.getPositionX() + x != walls[i].getPositionX() ||
+                    player.getPositionY() + y != walls[i].getPositionY())
+                player.setPosition(player.getPositionX() + x, player.getPositionY() + y);
+        }
+    
     }
 
     
